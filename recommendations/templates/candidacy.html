@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+
+<div class="row">
+<div class="col-sm-12">
+    <div class="panel panel-default text-left">
+    <div class="panel-body">
+        <p contenteditable="true">Para la candidatura de</p>
+        <p contenteditable="true">{{candidacy}}</p>
+        <p contenteditable="true">{{candidacy.party}}</p>
+        <p contenteditable="true">{{candidacy.pact}}</p>
+        <p contenteditable="true">Cuál de las recomendaciones te gusta más? </p>
+    </div>
+    </div>
+</div>
+</div>
+
+<ul>
+    <form action="{% url 'candidacy' slug=candidacy.slug %}" method="post">
+        {% csrf_token %}
+{% for recommendation in form.recommendation.field.queryset %}
+<div class="card col-sm-4" >
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <label for="id_recommendation_{{ forloop.counter }}">
+                <input type="radio" name="recommendation" value="{{ recommendation.id }}" required id="id_recommendation_{{ forloop.counter }}">
+                Me gusta este!
+            </label>
+        </li>
+        {% for proposal_recommendation in recommendation.proposal_recommendations.all %}
+            <li class="list-group-item">{{forloop.counter}} - {{ proposal_recommendation.proposal }} - 
+                <a href="https://votainteligente.cl/propuestas/d/{{proposal_recommendation.proposal.id}}" target="_blank">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+
+</ul>
+<div class="col-md-4"></div>
+<div class="col-md-4">
+    <input type="submit" value="Listo!!" class="btn btn-primary btn-lg">
+</div>
+<div class="col-md-4"></div>
+</form>
+
+{% else %}
+<p>Debes estar loggeada para ver esto.</p>
+{% endif %}
+{% endblock %}

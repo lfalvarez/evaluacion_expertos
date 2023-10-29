@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load recommendation_tags %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<ul>
+    {% for candidate in candidacies %}
+        {% has_choosen_recommendation user candidate as has_chosen %}
+        {% if not has_chosen %}
+
+        <li><a href="{% url 'candidacy' slug=candidate.slug %}">{{ candidate.name }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% else %}
+<p>Debes estar loggeada para ver esto.</p>
+{% endif %}
+{% endblock %}
