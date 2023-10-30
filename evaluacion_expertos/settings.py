@@ -42,7 +42,7 @@ if IS_HEROKU_APP:
 else:
     ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = ['https://*.felipealvarez.cl','https://*.localhost:8000']
+CSRF_TRUSTED_ORIGINS = ['https://*.felipealvarez.cl','https://*.localhost:8000', 'https://evaluacion-expertos-de4b50b8689f.herokuapp.com/']
 
 
 
