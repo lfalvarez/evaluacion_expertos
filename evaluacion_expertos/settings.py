@@ -42,6 +42,8 @@ if IS_HEROKU_APP:
 else:
     ALLOWED_HOSTS = []
 
+CSRF_TRUSTED_ORIGINS = ['https://*.felipealvarez.cl','https://*.localhost:8000']
+
 
 
 # Application definition
