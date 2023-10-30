@@ -3,6 +3,13 @@
 
 
 {% block content %}
+<h1>Evaluación de recomendaciones</h1>
+<p>Hola! muchas gracias por estar acá ❤️, te cuento un poco de esto:</p>
+<p>Esta es la plataforma para evaluar distintas técnicas para generar recomendaciones a candidaturas.</p>
+<p>Toda esta información es basada en la plataforma del VotaInteligente 2017</p>
+<p>Cuando selecciones una candidatura serás presentada con 3 recomendaciones,</p>
+<p>La idea es que selecciones la que más te guste para esa candidatura.</p>
+<p>Si no conoces a la candidatura, tranqui, déjala pasar como el agua que no has de beber.</p>
 
 {% if user.is_authenticated %}
 
@@ -11,7 +18,7 @@
         {% has_choosen_recommendation user candidate as has_chosen %}
         {% if not has_chosen %}
 
-        <li><a href="{% url 'candidacy' slug=candidate.slug %}">{{ candidate.name }}</a></li>
+        <li><a href="{% url 'candidacy' slug=candidate.slug %}">{{ candidate.name }} - {{candidate.party}}</a></li>
         {% endif %}
     {% endfor %}
 </ul>
