@@ -43,6 +43,7 @@ class ChoosenRecommendationForm(forms.ModelForm):
         super(ChoosenRecommendationForm, self).__init__(*args, **kwargs)
         # recomendations should only be the ones in the candidacy and they should be ordered randomly
         self.fields['recommendation'].queryset = self.candidacy.recommendations.all().order_by('?')
+        self.fields['recommendation'].required = False
 
     def save(self, commit=True):
         instance = super(ChoosenRecommendationForm, self).save(commit=False)

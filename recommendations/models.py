@@ -73,11 +73,14 @@ class RecommendationEvaluation(models.Model):
 
 # Create a class for ChoosenRecommendation with fields recommendation, user and candidacy
 class ChoosenRecommendation(models.Model):
-    recommendation = models.ForeignKey(Recommendation, on_delete=models.CASCADE)
+    recommendation = models.ForeignKey(Recommendation, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     candidacy = models.ForeignKey(Candidacy, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.recommendation.candidacy.name + ' - ' + self.recommendation.kind + ' - ' + str(self.user) + ' - ' + self.candidacy.name
+        result = self.candidacy.name + ' - ' + str(self.user)
+        if self.recommendation:
+            result += ' - ' + self.recommendation.kind
+        return result
 
 

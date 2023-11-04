@@ -22,12 +22,12 @@
     <form action="{% url 'candidacy' slug=candidacy.slug %}" method="post">
         {% csrf_token %}
 {% for recommendation in form.recommendation.field.queryset %}
-<div class="card col-sm-4" >
+<div class="card col-sm-3" >
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
             <label for="id_recommendation_{{ forloop.counter }}">
                 <input type="radio" name="recommendation" value="{{ recommendation.id }}" required id="id_recommendation_{{ forloop.counter }}">
-                Me gusta este!
+                Recomendaría esta!
             </label>
         </li>
         {% for proposal_recommendation in recommendation.proposal_recommendations.all %}
@@ -38,8 +38,16 @@
         {% endfor %}
     </ul>
 </div>
-{% endfor %}
 
+{% endfor %}
+<div class="card col-sm-3" >
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <label for="id_recommendation_0"><input type="radio" name="recommendation" value="" id="id_recommendation_0">
+                No recomendaría ninguna de las 3</label>
+        </li>
+    </ul>
+</div>
 
 </ul>
 <div class="col-md-4"></div>
