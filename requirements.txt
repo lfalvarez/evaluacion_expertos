@@ -3,3 +3,4 @@ gunicorn
 whitenoise
 dj_database_url
 psycopg2
+django-extensions
