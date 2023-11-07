@@ -19,6 +19,7 @@ class CandidacyListView(ListView):
     model = Candidacy
     template_name = 'candidacies.html'
     context_object_name = 'candidacies'
+    paginate_by = 15
 
 # Create a class based view for showing a Candidacy object
 class CandidacyDetailView(DetailView):
