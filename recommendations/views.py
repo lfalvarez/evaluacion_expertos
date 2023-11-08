@@ -1,6 +1,9 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.http import Http404
 from django.shortcuts import render
 from django.views.generic import ListView
+from .ids_seleccionados import ids_candidaturas
 
 from recommendations.forms import RecommendationEvaluationForm
 from .models import Candidacy, ChoosenRecommendation, Recommendation
@@ -20,6 +23,10 @@ class CandidacyListView(ListView):
     template_name = 'candidacies.html'
     context_object_name = 'candidacies'
     paginate_by = 15
+
+    def get_queryset(self) -> QuerySet[Any]:
+        queryset =  super().get_queryset()
+        return queryset.filter(slug__in=ids_candidaturas)
 
 # Create a class based view for showing a Candidacy object
 class CandidacyDetailView(DetailView):
