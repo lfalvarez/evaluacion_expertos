@@ -7,13 +7,14 @@ from .ids_seleccionados import ids_candidaturas
 
 from recommendations.forms import RecommendationEvaluationForm
 from .models import Candidacy, ChoosenRecommendation, Recommendation
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import RecommendationEvaluation
 from .forms import ChoosenRecommendationForm, RecommendationEvaluationForm
 from .models import Candidacy
+from django.db.models import Count
 
 # Create a class based view for listing Candidacy objects
 
@@ -125,4 +126,13 @@ class RecommendationEvaluationCreateView(LoginRequiredMixin, CreateView):
     
     def get_success_url(self):
         return reverse_lazy('candidacy', kwargs={'slug': self.kwargs['slug']})
+
+
+class StatsViews(LoginRequiredMixin, TemplateView):
+    template_name = 'stats.html'
+
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["stats"] = ChoosenRecommendation.objects.values('recommendation__kind').annotate(count=Count('recommendation__kind'))
+        return context
     

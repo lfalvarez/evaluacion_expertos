@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
-from recommendations.views import CandidacyListView, CandidacyDetailView, ChoosenRecommendationCreateView, RecommendationEvaluationCreateView
+from recommendations.views import CandidacyListView, CandidacyDetailView, ChoosenRecommendationCreateView, RecommendationEvaluationCreateView, StatsViews
 
 
 urlpatterns = [
@@ -26,6 +26,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('', CandidacyListView.as_view(), name='candidacies'),
+    path('stats/', StatsViews.as_view(), name='stats'),
     path('<slug:slug>/', ChoosenRecommendationCreateView.as_view(), name='candidacy'),
     # Create a path for recommendation evaluation create view
     path('<slug:slug>/recommendations/<int:pk>/', RecommendationEvaluationCreateView.as_view(), name='recommendation_evaluation'),
