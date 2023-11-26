@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul>
+
   {% for stat in stats %}
-  <li>{{stat.recommendation__kind}}, {{stat.count}}</li>
+  '{{stat.recommendation__kind}}': {{stat.count}}
   {% endfor %}
-</ul>
 {% endblock %}
 
